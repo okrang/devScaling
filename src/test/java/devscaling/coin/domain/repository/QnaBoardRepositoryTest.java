@@ -2,7 +2,6 @@ package devscaling.coin.domain.repository;
 
 import devscaling.coin.domain.entity.Anonymous;
 import devscaling.coin.domain.entity.QnaBoard;
-import devscaling.coin.domain.entity.QnaComment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,6 @@ class QnaBoardRepositoryTest {
 
     Anonymous anonymous;
     QnaBoard qnaBoard;
-    QnaComment qnaComment;
 
     @BeforeEach
     void before(){
