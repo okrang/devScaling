@@ -1,6 +1,7 @@
 package devscaling.coin.domain.entity;
 
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "QNABOARD")
+@Table(name = "qna_board")
 public class QnaBoard extends BaseEntity {
 
     @Id
@@ -43,5 +44,11 @@ public class QnaBoard extends BaseEntity {
     }
 
     //일반고객 연관관계 설정 필요
+
+
+    public void updateQnaBoard(QnaBoard qnaBoard){
+        this.title = qnaBoard.getTitle();
+        this.content = qnaBoard.getContent();
+    }
 
 }

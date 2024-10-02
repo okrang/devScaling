@@ -29,4 +29,8 @@ public class QnaComment extends BaseEntity {
         qnaBoards.getQnaComments().add(this);
     }
 
+    public void updateQnaComment(String content) {
+        this.content = content;
+    }
+
 }
