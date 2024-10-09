@@ -11,7 +11,7 @@ public interface PersonalStateRepository extends JpaRepository<PersonalState,Lon
     List<PersonalState> findByApplyMonth(int applyMonth);
 
     //id로 submitboard 찾기?
-    List<SubmitBoard> findByPersonalState(PersonalState personalState);
+    //List<SubmitBoard> findByPersonalState(PersonalState personalState);
 
     //특정 mem과 특정월
 }
