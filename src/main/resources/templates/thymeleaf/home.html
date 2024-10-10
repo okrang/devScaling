@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈페이지</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #a065e8, #5eb5fa);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0;
+            color: #fff;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+        .login-btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        .login-btn:hover {
+            background-color: #6a11cb;
+        }
+        .main-content {
+            display: flex;
+            flex-grow: 1;
+            align-items: flex-end;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .qa-btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 8px 10px; /* 좌우 패딩을 작게 수정 */
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* transform 추가 */
+            font-size: 14px; /* 작게 수정 */
+            margin-top: 20px;
+            width: 120px; /* 고정 너비 설정 */
+            text-align: center; /* 가운데 정렬 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+        }
+
+        .qa-btn:hover {
+            background-color: #6a11cb;
+            transform: translateY(-2px); /* 약간 위로 이동 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강화 */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/login" class="login-btn">로그인</a>
+    </div>
+    <div class="main-content">
+        <button class="qa-btn">Q&A</button> <!-- Q&A 버튼 -->
+    </div>
+</body>
+</html>
