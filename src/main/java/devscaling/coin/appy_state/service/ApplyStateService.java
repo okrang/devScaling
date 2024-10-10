@@ -6,22 +6,19 @@ import devscaling.coin.appy_state.repository.ApplyStateRepository;
 
 import devscaling.coin.member.model.Member;
 import devscaling.coin.member.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 // payload
 import java.util.Map;
 
+// Final변수 Constructor Injection
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class ApplyStateService {
     private final ApplyStateRepository applyStateRepository;
     private final MemberRepository memberRepository;
-
-    @Autowired
-    public ApplyStateService(ApplyStateRepository applyStateRepository, MemberRepository memberRepository){
-        this.applyStateRepository = applyStateRepository;
-        this.memberRepository = memberRepository;
-    }
 
     // 신청 메소드
     public void request(Map<String, Object> payload){

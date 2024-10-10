@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 페이지</title>
+    <script src="/js/signup.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+
+         * {
+            box-sizing: border-box;
+        }
+        body {
+
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #a065e8, #5eb5fa);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 수직 중앙 정렬 */
+            align-items: center; /* 수평 중앙 정렬 */
+            margin: 0;
+            color: #fff;
+        }
+        ::-webkit-scrollbar {
+            display: none; /* 크롬 및 사파리에서 스크롤바 숨기기 */
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            padding: 20px;
+            position: absolute; /* 추가: 절대 위치 */
+            top: 0; /* 추가: 상단에 고정 */
+            left: 0; /* 추가: 왼쪽에 고정 */
+        }
+        .home-btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* transform 추가 */
+            font-size: 16px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+        }
+
+        .home-btn:hover {
+            background-color: #6a11cb;
+            transform: translateY(-2px); /* 약간 위로 이동 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강화 */
+        }
+        .signup-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+            margin-top: 100px; /* 로그인 페이지와 동일하게 여백 추가 */
+        }
+        .signup-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-group {
+            margin: 20px 0;
+            display: flex;
+            align-items: center; /* 세로 중앙 정렬 */
+            justify-content: center; /* 가로 중앙 정렬 */
+        }
+        .input-group input {
+            flex: 1; /* 입력창 너비 자동 조정 */
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            transition: border 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+            margin-right: 10px; /* 버튼과의 간격 조정 */
+        }
+        .input-group input:focus {
+            border: 1px solid #6a11cb;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+            outline: none;
+        }
+        .input-group button {
+            background-color: #9a67e5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 5px 10px; /* 버튼 패딩 조정 */
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 120px; /* 버튼 너비 조정 */
+            font-size: 12px; /* 버튼 폰트 크기 조정 */
+        }
+        .input-group button:hover {
+            background-color: #6a11cb;
+        }
+        .btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 16px;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #6a11cb;
+            transform: scale(1.05);
+        }
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #6a11cb;
+            text-decoration: none;
+        }
+        .main-content {
+            display: flex;
+            flex-grow: 1;
+            align-items: flex-end;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .qa-btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 8px 10px; /* 좌우 패딩을 작게 수정 */
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* transform 추가 */
+            font-size: 14px; /* 작게 수정 */
+            margin-top: 20px;
+            width: 120px; /* 고정 너비 설정 */
+            text-align: center; /* 가운데 정렬 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+        }
+
+        .qa-btn:hover {
+            background-color: #6a11cb;
+            transform: translateY(-2px); /* 약간 위로 이동 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 강화 */
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <a href="/home" class="home-btn">홈</a>
+</div>
+<div class="signup-container">
+    <h1>회원가입</h1>
+    <form th:action="@{/signup-req}" method="post">
+        <div class="input-group">
+            <input type="text" name="id" placeholder="ID" required>
+            <button type="button" onclick="checkId()">중복 체크</button> <!-- ID 중복 체크 버튼 -->
+        </div>
+        <div class="input-group">
+            <input type="password" name="password" placeholder="비밀번호" required>
+        </div>
+        <div class="input-group">
+            <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required>
+        </div>
+        <div class="input-group">
+            <input type="text" name="name" placeholder="이름" required>
+        </div>
+        <div class="input-group">
+            <input type="email" name="email" placeholder="이메일" required>
+        </div>
+        <div class="input-group">
+            <input type="text" name="nickname" placeholder="닉네임" required>
+        </div>
+        <div class="input-group">
+            <input type="text" name="baekjoonId" placeholder="백준 ID" >
+        </div>
+        <button type="submit" onclick="submitSignup()" class="btn">회원가입</button>
+    </form>
+    <div class="login-link">
+        <a href="/login">이미 계정이 있으신가요? 로그인</a>
+    </div>
+</div>
+<div class="main-content">
+    <button class="qa-btn">Q&A</button>
+</div>
+</body>
+</html>
