@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class CoinApplication {
 
 	public static void main(String[] args) {

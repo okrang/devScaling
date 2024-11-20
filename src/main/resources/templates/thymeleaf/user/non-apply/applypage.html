@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>신청</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-color: #f4f7f6;
+    }
+
+    /* 사이드바 스타일 */
+    .sidebar {
+        width: 200px;
+        background-color: #2c3e50;
+        color: white;
+        padding-top: 20px;
+        position: fixed;
+        height: 100%;
+    }
+
+    .sidebar a {
+        display: block;
+        color: white;
+        padding: 15px 20px;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .sidebar a:hover {
+        background-color: #34495e;
+    }
+
+    .content {
+        margin-left: 220px; /* 사이드바 공간 만큼 밀기 */
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* 신청현황 테이블 스타일 */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .table th, .table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .table td {
+        background-color: #fff;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 사이드바 메뉴 -->
+<div class="sidebar">
+  <a href="#">게시판</a>
+  <a href="#">Q&A</a>
+  <a href="#">신청</a>
+</div>
+
+<!-- 본문 콘텐츠 -->
+<div class="content">
+  <div class="container">
+    <h2>신청하기</h2>
+    <form action="/submit-application" method="POST">
+      <!-- 신청월 (달력 선택) -->
+      <div class="form-group">
+        <label for="application-month">월</label>
+        <input type="month" id="application-month" name="application-month" required>
+      </div>
+
+      <!-- 신청반 (드롭다운) -->
+      <div class="form-group">
+        <label for="application-class">반</label>
+        <select id="application-class" name="application-class" required>
+          <option value="" disabled selected>반을 선택하세요</option>
+          <option value="입문">입문</option>
+          <option value="기본">기본</option>
+          <option value="심화">심화</option>
+        </select>
+      </div>
+
+      <!-- 제출 버튼 -->
+      <button type="submit" class="btn">신청하기</button>
+    </form>
+
+    <!-- 신청현황 테이블 -->
+    <h2>신청현황</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>신청월</th>
+        <th>반</th>
+        <th>신청결과</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>2024-11</td>
+        <td>기본</td>
+        <td>대기중</td>
+      </tr>
+      <tr>
+        <td>2024-12</td>
+        <td>심화</td>
+        <td>승인</td>
+      </tr>
+      <tr>
+        <td>2025-01</td>
+        <td>입문</td>
+        <td>미승인</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
