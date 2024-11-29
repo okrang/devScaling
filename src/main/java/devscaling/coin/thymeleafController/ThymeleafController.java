@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ThymeleafController {
+public class  ThymeleafController {
     @GetMapping("/home")
     public String homePage(){
         return "home";
     }
+
 
     @GetMapping("/login")
     public String loginPage(){
@@ -45,4 +46,22 @@ public class ThymeleafController {
     public String userNonApplyMyPagePage(){
         return "user/non-apply/mypage";
     }
+
+    @GetMapping("/board")
+    public String boardPage(){
+        return "submitBoard/board";
+    }
+
+    @GetMapping("/boardForm")
+    public String boardFormPage(){
+        return "submitBoard/boardForm";
+    }
+
+    @GetMapping("/boardList")
+    public String boardListPage(){
+        return "submitBoard/boardList";
+    }
+
+
+
 }

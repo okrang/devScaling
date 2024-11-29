@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세보기</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #9a67e5;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .header .home-btn,
+        .header .qa-btn {
+            background-color: #6a11cb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .content {
+            margin-top: 80px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .post-header {
+            margin-bottom: 20px;
+        }
+
+        .post-header h1 {
+            margin: 0;
+        }
+
+        .post-body {
+            margin-top: 20px;
+        }
+
+        .code-container {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+
+        .post-footer {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .author {
+            font-weight: bold;
+            color: #4a90e2;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <a href="/home" class="home-btn">홈</a>
+    <a href="/qa" class="qa-btn">Q&A</a>
+</div>
+
+<div class="content">
+    <!-- 게시글 제목, 작성자 정보 -->
+    <div class="post-header">
+        <!-- 게시글 제목 표시 -->
+        <h1 th:text="${submitBoard.title}">게시글 제목</h1>
+
+        <!-- 작성자 표시, SubmitBoardResponseDto에 작성자 정보가 없다면 적절한 정보를 넣으세요 -->
+        <p th:text="${submitBoard.member}">작성자</p>
+    </div>
+
+    <div class="post-body">
+        <!-- 문제 링크 -->
+        <p><strong>링크:</strong> <a th:href="${submitBoard.problemLink}" target="_blank" th:text="${submitBoard.problemLink}">링크</a></p>
+
+        <!-- 게시글 내용 -->
+        <p><strong>설명:</strong> <span th:text="${submitBoard.content}">설명</span></p>
+    </div>
+
+    <div class="language">
+        <!-- 사용 언어 -->
+        <p><strong>언어: </strong><span th:text="${submitBoard.language}">언어</span></p>
+    </div>
+
+    <div class="code-container">
+        <!-- 코드 -->
+        <pre th:text="${submitBoard.code}">코드 영역</pre>
+    </div>
+
+    <div class="post-footer">
+        <!-- 작성일 -->
+        <p><strong>작성일:</strong> <span th:text="${#dates.format(submitBoard.createdAt, 'yyyy-MM-dd HH:mm')}">2024-11-14</span></p>
+
+        <!-- 수정일 -->
+        <p><strong>수정일:</strong> <span th:text="${#dates.format(submitBoard.updatedAt, 'yyyy-MM-dd HH:mm')}">2024-11-14</span></p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 작성</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/java/java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/python/python.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #a065e8, #5eb5fa);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0;
+            color: #fff;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between; /* 양쪽 끝에 배치 */
+            padding: 20px;
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+        }
+        .home-btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            font-size: 16px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-btn:hover {
+            background-color: #6a11cb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #6a11cb;
+            transform: scale(1.05);
+        }
+
+        form {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            margin-top: 100px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: none;
+        }
+
+        form input:focus,
+        form textarea:focus {
+            border: 1px solid #6a11cb;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #6a11cb;
+            transform: scale(1.05);
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .qa-btn {
+            background-color: #9a67e5;
+            color: white;
+            padding: 8px 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 14px;
+            margin-top: 20px;
+            width: 120px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .qa-btn:hover {
+            background-color: #6a11cb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* CodeMirror 에디터 크기 지정 */
+        #codeEditor {
+            height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <a href="/home" class="home-btn">홈</a>
+    <div>
+        <button id="backButton" class="btn" style="margin-right: 10px;">
+            <i class="fas fa-arrow-left"></i> 뒤로가기
+        </button>
+        <button id="writeButton" class="btn">
+            <i class="fas fa-pencil-alt"></i> 글쓰기
+        </button>
+    </div>
+</div>
+
+<form id="postForm" action="/submit_board" method="POST">
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+
+    <label for="link">link</label>
+    <textarea id="link" name="problemLink" placeholder="link" required></textarea>
+
+    <label for="content">설명</label>
+    <textarea id="content" name="content" placeholder="코드에 대한 설명" required></textarea>
+
+    <div class="input-group">
+        <label for="language">언어 선택</label>
+        <select id="language" name="language">
+            <option value="javascript">JavaScript</option>
+            <option value="c">C</option>
+            <option value="java">Java</option>
+            <option value="python">Python</option>
+        </select>
+
+        <label for="code">코드</label>
+        <textarea id="code" name="code"></textarea> <!-- CodeMirror를 사용할 textarea로 변경 -->
+    </div>
+
+    <button type="submit" class="submit-btn">저장</button>
+</form>
+
+<div class="main-content">
+    <button class="qa-btn">Q&A</button>
+</div>
+
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        mode: "javascript",  // 기본값은 JavaScript로 설정
+        theme: "default",
+        height: "auto",
+        lineWrapping: true
+    });
+
+    document.getElementById("language").addEventListener("change", function() {
+        var selectedLanguage = this.value;
+
+        // 선택한 언어에 맞는 mode를 설정
+        switch (selectedLanguage) {
+            case "javascript":
+                editor.setOption("mode", "javascript");
+                break;
+            case "c":
+                editor.setOption("mode", "text/x-csrc");
+                break;
+            case "java":
+                editor.setOption("mode", "text/x-java");
+                break;
+            case "python":
+                editor.setOption("mode","text/x-python");
+                break;
+    });
+</script>
