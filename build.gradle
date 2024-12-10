@@ -24,8 +24,15 @@ repositories {
 }
 
 dependencies {
+
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
 	implementation 'org.springframework.boot:spring-boot-starter-validation' // 유효성검사
-	implementation 'org.springframework.security:spring-security-core:6.3.0' // Password등을 위한 Security
+	implementation 'org.springframework.security:spring-security-core:6.3.2' // 핵심 보안 기능
+	implementation 'org.springframework.security:spring-security-web:6.3.2' // 웹 애플리케이션 보안 기능(HTTP 요청에 대한 인증, 인가, 쿠키 관리, 세션 관리 등)
+	implementation 'org.springframework.security:spring-security-config:6.3.2' // security 보안 설정 구성(SecurityFilterChain)
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mail' // 이메일 인증

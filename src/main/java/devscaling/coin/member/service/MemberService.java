@@ -1,6 +1,8 @@
 package devscaling.coin.member.service;
 
 // 패스워드 보안 강화를 위한 Encoder
+import devscaling.coin.member.DTO.LoginDTO;
+import devscaling.coin.member.DTO.SignUpDTO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 // Member, MemberRepository 참조를 위한 import
@@ -27,16 +29,36 @@ public class MemberService {
     }
 
     // 회원가입 메소드
-    public void signup(Member member){
-        String encodedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encodedPassword);
-        memberRepository.save(member);
+    public void signup(SignUpDTO signUpDTO){
+        String username = signUpDTO.getPersonalId();
+        String password = signUpDTO.getPassword();
+        String name = signUpDTO.getName();
+        String email = signUpDTO.getEmail();
+        String nickname = signUpDTO.getNickname();
+        String backjoonId = signUpDTO.getBackjoonId();
+
+        Member data = new Member();
+
+        data.setPersonalId(username);
+        data.setPassword(passwordEncoder.encode(password));
+        data.setName(name);
+        data.setEmail(email);
+        data.setNickname(nickname);
+        data.setBackjoonId(backjoonId);
+
+        memberRepository.save(data);
     }
 
     // 로그인 메소드
-    public boolean login(String personalId, String password){
+    public boolean login(LoginDTO loginDTO){
+        String personalId = loginDTO.getPersonalId();
+        String password = loginDTO.getPassword();
+
         Member member = memberRepository.findByPersonalId(personalId);
         if(member != null){
+            // 디버깅을 위한 출력 (확인용)
+            System.out.println("입력된 비밀번호: " + password);
+            System.out.println("저장된 암호화된 비밀번호: " + member.getPassword());
             return passwordEncoder.matches(password, member.getPassword());
         }
         return false;
@@ -48,8 +70,8 @@ public class MemberService {
     }
 
     // rank값 확인 메서드
-    public int getRank(String personalId){
+    public String getRank(String personalId){
         Member member = memberRepository.findByPersonalId(personalId);
-        return member != null ? member.getRank() : null;
+        return member != null ? member.getRole() : null;
     }
 }

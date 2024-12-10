@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #f4f7f6;
+        }
+
+        /* 사이드바 스타일 */
+        .sidebar {
+            width: 200px;
+            background-color: #2c3e50;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+            height: 100%;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .sidebar a:hover {
+            background-color: #34495e;
+        }
+
+        .content {
+            margin-left: 220px; /* 사이드바 공간 만큼 밀기 */
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .login-link {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 사이드바 메뉴 -->
+<div class="sidebar">
+    <a href="#">게시판</a>
+    <a href="#">Q&A</a>
+</div>
+
+<!-- 본문 콘텐츠 -->
+<div class="content">
+    <div class="container">
+        <form action="/api/member/signup-req" method="post">
+            <div class="form-group">
+                <input type="text" name="personalId" placeholder="ID" required id="personalId">
+                <button type="button" >중복 체크</button> <!-- ID 중복 체크 버튼 -->
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="비밀번호" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="confirmPassword" placeholder="비밀번호 확인" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="name" placeholder="이름" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="이메일" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="nickname" placeholder="닉네임" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="backjoonId" placeholder="백준 ID" required>
+            </div>
+                <button type="submit" class="btn">회원가입</button>
+            <div class="login-link">
+                <a href="/login">이미 계정이 있으신가요? 로그인</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -544,3 +544,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/projects/devS
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 54 more
+2024-11-28 20:35:33.238503+09:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "delete [*]* FROM MEMBER where id=33"; expected "identifier"; SQL statement:
+delete * FROM MEMBER where id=33 [42001-224]

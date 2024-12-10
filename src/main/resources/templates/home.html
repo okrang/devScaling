@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
+    <title>홈</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,18 +42,15 @@
             flex-grow: 1;
         }
 
-        h1 {
+        h2 {
             margin-bottom: 20px;
-            color: #333;
         }
 
         .container {
             background-color: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
         }
 
         .form-group {
@@ -65,7 +62,7 @@
             color: #555;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 10px;
             font-size: 14px;
@@ -74,7 +71,7 @@
             box-sizing: border-box;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: #007bff;
             outline: none;
         }
@@ -93,51 +90,33 @@
         .btn:hover {
             background-color: #0056b3;
         }
-
-        .forgot-password {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .forgot-password a {
-            color: #007bff;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
 
 <!-- 사이드바 메뉴 -->
 <div class="sidebar">
+    <!-- 로그인한 사용자에게만 보이는 링크 -->
+    <a th:if="${isLoggedIn}" href="#">대시보드</a>
+    <a th:if="${isLoggedIn}" href="#">제출</a>
+    <a th:if="${isLoggedIn}" href="#">신청</a>
+
     <a href="#">게시판</a>
     <a href="#">Q&A</a>
+    <!-- 로그인하지 않은 사용자에게만 보이는 링크 -->
+    <!-- <a th:unless="${isLoggedIn}" href="/login">로그인</a> -->
+    <a href="/login">로그인</a>
 </div>
 
 <!-- 본문 콘텐츠 -->
 <div class="content">
-    <div class="container">
-        <h1>로그인</h1>
-        <form th:action="{/api/member/login-req}" method="post">
-            <div class="form-group">
-                <label for="ID">아이디</label>
-                <input type="text" id="ID" name="ID" placeholder="아이디" required>
-            </div>
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" placeholder="비밀번호" required>
-            </div>
-            <button type="submit" class="btn">로그인</button>
-            <div class="forgot-password">
-                <a href="find-password">비밀번호를 잊으셨나요?</a>
-                <a href="/signup">회원가입</a>
-            </div>
-        </form>
+    <!-- 회원가입 완료 메시지 출력 -->
+    <div th:if="${signupMessage}" class="container">
+        <h2 th:text="${signupMessage}"></h2>
+    </div>
+    <!-- 로그인 실패 메시지 출력 -->
+    <div th:if="${loginFail}" class="container">
+        <h2 th:text="${loginFail}"></h2>
     </div>
 </div>
 

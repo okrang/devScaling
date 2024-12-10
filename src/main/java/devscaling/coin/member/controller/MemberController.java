@@ -1,13 +1,16 @@
 package devscaling.coin.member.controller;
 
 // Member, MemberService 참조
+import devscaling.coin.member.DTO.LoginDTO;
+import devscaling.coin.member.DTO.SignUpDTO;
 import devscaling.coin.member.model.Member;
 import devscaling.coin.member.service.MemberService;
 
 // Spring의 웹 관련 애너테이션(주로 RESTful API)
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 // Final변수 Constructor Injection
@@ -15,8 +18,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Map;
 
+@Controller
 @RequiredArgsConstructor
-@RestController
 @RequestMapping("/api/member")
 public class MemberController {
     private final MemberService memberService;
@@ -32,21 +35,21 @@ public class MemberController {
 
     // 회원가입 API
     @PostMapping("/signup-req")
-    public ResponseEntity<String> signup(@RequestBody Member member){
-        memberService.signup(member);
-        return ResponseEntity.ok("회원가입 성공");
+    public String signup(@ModelAttribute SignUpDTO signUpDTO, Model model){
+        memberService.signup(signUpDTO);
+        model.addAttribute("signupMessage", "회원가입이 완료되었습니다.");
+        return "home";
     }
 
     // 로그인 API
     @PostMapping("/login-req")
-    public ResponseEntity<Map<String, String>> login(@RequestBody Member member){
-        boolean success = memberService.login(member.getPersonalId(), member.getPassword());
+    public String login(@ModelAttribute LoginDTO loginDTO, Model model){
+        boolean success = memberService.login(loginDTO);
         if(success){
-            int rank = memberService.getRank(member.getPersonalId());
-            return ResponseEntity.ok(Map.of("message", "로그인 성공", "rank", String.valueOf(rank)));
+            return "user/apply/mypage";
         }else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("message", "로그인 실패"));
+            model.addAttribute("loginFail", "일치하는 회원정보가 없습니다.");
+            return "home";
         }
     }
 

@@ -77,8 +77,8 @@ public class Member {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP(0)")
     private LocalDateTime updatedAt;
 
-    @Column(name = "rank", columnDefinition = "INTEGER")
-    private int rank;
+    @Column(name = "role", columnDefinition = "VARCHAR(20)")
+    private String role;
 
     @OneToMany(mappedBy = "memberId", cascade = CascadeType.ALL)
     private Set<ApplyState> applyState;
