@@ -19,14 +19,18 @@ import java.time.LocalDateTime;
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="SUBMIT_BOARD")
+@NoArgsConstructor
+@AllArgsConstructor
 public class SubmitBoard {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="sb_id")
     private Long id;
     private String title;
     private String content;
-    @Column(name="problemLink")
-    private String problem_link;
+    private String language;
+    private String code;
+    private String member;
+    // @Column(name="problemLink")
+    private String problemLink;
     @CreatedDate
     @Column(name="created_at",updatable=false, nullable=false )
     private LocalDateTime createdAt;
@@ -34,7 +38,7 @@ public class SubmitBoard {
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ps_id")
     private PersonalState personalState;
 

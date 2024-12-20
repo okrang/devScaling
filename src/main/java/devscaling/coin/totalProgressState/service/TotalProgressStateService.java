@@ -1,6 +1,5 @@
-package devscaling.coin.toatlProgressState.service;
-import devscaling.coin.toatlProgressState.entity.TotalProgressState;
-import devscaling.coin.toatlProgressState.repository.TotalProgressStateRepository;
+package devscaling.coin.totalProgressState.service;
+import devscaling.coin.totalProgressState.repository.TotalProgressStateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
