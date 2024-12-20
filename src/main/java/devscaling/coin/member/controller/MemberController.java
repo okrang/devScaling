@@ -20,7 +20,6 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/member")
 public class MemberController {
     private final MemberService memberService;
 
@@ -34,7 +33,7 @@ public class MemberController {
     }
 
     // 회원가입 API
-    @PostMapping("/signup-req")
+    @PostMapping("/signup")
     public String signup(@ModelAttribute SignUpDTO signUpDTO, Model model){
         memberService.signup(signUpDTO);
         model.addAttribute("signupMessage", "회원가입이 완료되었습니다.");
@@ -42,16 +41,16 @@ public class MemberController {
     }
 
     // 로그인 API
-    @PostMapping("/login-req")
-    public String login(@ModelAttribute LoginDTO loginDTO, Model model){
-        boolean success = memberService.login(loginDTO);
-        if(success){
-            return "user/apply/mypage";
-        }else {
-            model.addAttribute("loginFail", "일치하는 회원정보가 없습니다.");
-            return "home";
-        }
-    }
+//    @PostMapping("/login")
+//    public String login(@ModelAttribute LoginDTO loginDTO, Model model){
+//        boolean success = memberService.login(loginDTO);
+//        if(success){
+//            return "user/apply/mypage";
+//        }else {
+//            model.addAttribute("loginFail", "일치하는 회원정보가 없습니다.");
+//            return "home";
+//        }
+//    }
 
     // 비밀번호 재설정 요청 API
     @PostMapping("/request-reset-password")

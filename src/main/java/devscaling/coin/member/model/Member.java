@@ -23,7 +23,7 @@ import devscaling.coin.appy_state.model.ApplyState;
 /*
     [멤버]
     id :            Member의 Key값
-    personalId :    로그인 id
+    username :    로그인 id
     password :      로그인 pw
     name :          본명
     email :         이메일
@@ -46,8 +46,8 @@ public class Member {
     private int id;
 
     @NotNull // null값 불가
-    @Column(name = "personal_id", columnDefinition = "VARCHAR(20)")
-    private String personalId;
+    @Column(name = "username", columnDefinition = "VARCHAR(20)")
+    private String username;
 
     @NotNull
     @Column(name = "password", columnDefinition = "VARCHAR(255)")

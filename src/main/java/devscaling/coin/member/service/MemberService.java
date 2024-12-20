@@ -25,12 +25,12 @@ public class MemberService {
 
     // ID 중복 체크 메소드
     public boolean isIdAvailable(String personalId){
-        return memberRepository.findByPersonalId(personalId) == null;
+        return memberRepository.findByUsername(personalId) == null;
     }
 
     // 회원가입 메소드
     public void signup(SignUpDTO signUpDTO){
-        String username = signUpDTO.getPersonalId();
+        String username = signUpDTO.getUsername();
         String password = signUpDTO.getPassword();
         String name = signUpDTO.getName();
         String email = signUpDTO.getEmail();
@@ -39,7 +39,7 @@ public class MemberService {
 
         Member data = new Member();
 
-        data.setPersonalId(username);
+        data.setUsername(username);
         data.setPassword(passwordEncoder.encode(password));
         data.setName(name);
         data.setEmail(email);
@@ -54,7 +54,7 @@ public class MemberService {
         String personalId = loginDTO.getPersonalId();
         String password = loginDTO.getPassword();
 
-        Member member = memberRepository.findByPersonalId(personalId);
+        Member member = memberRepository.findByUsername(personalId);
         if(member != null){
             // 디버깅을 위한 출력 (확인용)
             System.out.println("입력된 비밀번호: " + password);
@@ -71,7 +71,7 @@ public class MemberService {
 
     // rank값 확인 메서드
     public String getRank(String personalId){
-        Member member = memberRepository.findByPersonalId(personalId);
+        Member member = memberRepository.findByUsername(personalId);
         return member != null ? member.getRole() : null;
     }
 }
